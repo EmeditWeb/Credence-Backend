@@ -140,7 +140,7 @@ describe('WebhookEventPublisher', () => {
       const publisher = new WebhookEventPublisher(webhookService)
 
       const secretPayload = { secret: 'super-secret-token' }
-      awayait publisher
+      await publisher
         .publish(baseEvent({ payload: secretPayload, correlationId: 'correct-id' }))
         .catch(() => undefined)
 
@@ -153,7 +153,7 @@ describe('WebhookEventPublisher', () => {
 
     it('propagates synchronous throws from emit without swallowing them', async () => {
       const failure = new Error('sync failure')
-      const emit = vi.fn().(() => {
+      const emit = vi.fn(() => {
         throw failure
       })
       const webhookService = { emit } as unknown as WebhookService
@@ -219,7 +219,7 @@ describe('WebhookEventPublisher', () => {
   })
 
   describe('constructor contract', () => {
-    it('requires a webhook service and fails loud on missing dependency', () => {
+    it('requires a webhook service and fails loud on missing dependency', async () => {
       // The constructor stores the service as a readonly field; a call with
       // an undefined service must not silently succeed at publish time.
       const publisher = new WebhookEventPublisher(undefined as unknown as WebhookService)
