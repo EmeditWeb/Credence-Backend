@@ -69,7 +69,7 @@ describe('KeyRotationScheduler', () => {
     })
     scheduler.start()
 
-    await vi.advanceTimesByTimeAsync(150)
+    await vi.advanceTimersByTimeAsync(150)
     scheduler.stop()
 
     expect(rotateSpy).toHaveBeenCalled()
@@ -86,7 +86,7 @@ describe('KeyRotationScheduler', () => {
     })
     scheduler.start()
 
-    await vi.advanceTimerByTimeAsync(75)
+    await vi.advanceTimersByTimeAsync(75)
     scheduler.stop()
 
     expect(logs.some((l) => l.includes('rotation failed') && l.includes('boom'))).toBe(true)
@@ -104,7 +104,7 @@ describe('KeyRotationScheduler', () => {
     })
     scheduler.start()
 
-    await vi.advanceTimerByTimeAsync(500) // half the rotate interval
+    await vi.advanceTimersByTimeAsync(500) // half the rotate interval
     scheduler.stop()
 
     expect(rotateSpy).not.toHaveBeenCalled()
@@ -119,11 +119,11 @@ describe('KeyRotationScheduler', () => {
       logger: (m) => logs.push(m),
     })
     scheduler.start()
-    await vi.advanceTimesByTimeAsync(75)
+    await vi.advanceTimersByTimeAsync(75)
     scheduler.stop()
 
     const callCountAtStop = rotateSpy.mock.calls.length
-    await vi.advanceTimerByTimeAsync(500) // far past the interval
+    await vi.advanceTimersByTimeAsync(500) // far past the interval
     scheduler.stop() // idempotent
 
     expect(rotateSpy.mock.calls.length).toBe(callCountAtStop)
@@ -222,7 +222,7 @@ describe('KeyRotationScheduler', () => {
     scheduler.start()
 
     // Advance well past multiple intervals while the first rotation is slow
-.    await vi.advanceTimerByTimeAsync(1000)
+await vi.advanceTimersByTimeAsync(1000)
     scheduler.stop()
 
     expect(maxInFlight).toBe(1)
@@ -242,7 +242,7 @@ describe('KeyRotationScheduler', () => {
     })
     scheduler.start()
 
-    await vi.advanceTimesByTimeAsync(75)
+    await vi.advanceTimersByTimeAsync(75)
     expect(scheduler.isActive()).toBe(true)
     expect(pruneSpy).toHaveBeenCalled()
 
@@ -292,7 +292,7 @@ describe('KeyRotationScheduler', () => {
       logger: (m) => logs.push(m),
     })
     scheduler.start()
-    await vi.advanceTimerByTimeAsync(75)
+    await vi.advanceTimersByTimeAsync(75)
     scheduler.stop()
 
     expect(logs.join('\n')).not.toContain(secret)

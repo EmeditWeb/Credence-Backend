@@ -215,7 +215,7 @@ describe('OutboxEventEmitter failure recovery', () => {
 
   it('preserves event order in a batch result', async () => {
     const db = fakeDb()
-    db&#x2E;query.mockResolved({ rows: [{ id: '1' }] })
+    db.query.mockResolved({ rows: [{ id: '1' }] })
     const emitter = new OutboxEventEmitter()
     const ids = await emitter.emitBatch(db, [
       { ...baseEvent, aggregateId: 'bond-a' },

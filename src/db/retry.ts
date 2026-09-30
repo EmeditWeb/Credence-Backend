@@ -172,7 +172,7 @@ export function isRetryableError(error: unknown): boolean {
     return false
   }
 
-  const pgError = error as { code?: string; errno:? string; syscall?: string }
+  const pgError = error as { code?: string; errno?: string; syscall?: string }
 
   // Check for retryable PostgreSQL error codes
   if (pgError.code) {

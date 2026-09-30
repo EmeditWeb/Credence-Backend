@@ -277,7 +277,7 @@ export class TransactionManager {
     } = options;
 
     const effectiveTimeoutMs =
-      timeoutMs ?=
+      timeoutMs ??
       (policy !== undefined ? this.timeouts[policy] : this.timeouts.default);
 
     const activeClient = transactionStorage.getStore();

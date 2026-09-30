@@ -14,17 +14,20 @@ export {
 } from './latencyMetrics.js'
 
 export {
-  TimeoutEvent,
-  SlowOperationEvent,
-  SuccessEvent,
-  TimeoutMetricsSummary,
-  TimeoutMetricsCollector,
   ConsoleTimeoutMetrics,
   ProductionTimeoutMetrics,
   createDefaultMetricsCollector,
   createTimeoutEvent,
   createSlowOperationEvent,
   createSuccessEvent,
+} from './timeoutMetrics.js'
+
+export type {
+  TimeoutEvent,
+  SlowOperationEvent,
+  SuccessEvent,
+  TimeoutMetricsSummary,
+  TimeoutMetricsCollector,
 } from './timeoutMetrics.js'
 
 export { registerPoolMetrics, registerPreparedStatementCacheMetrics } from './poolMetrics.js'
